@@ -24,6 +24,14 @@ const init = async () => {
         }
     });
 
+    server.route({
+        method: 'GET',
+        path: '/bundle.js',
+        handler: (request, h) => {
+            return h.file('dist/bundle.js').header('Cache-Control', 'no-cache, no-store, must-revalidate');
+        }
+    });
+
     await server.register(require('inert'));
 
     await server.start();
