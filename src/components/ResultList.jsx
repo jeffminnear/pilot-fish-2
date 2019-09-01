@@ -10,6 +10,26 @@ const style = {
 }
 
 class ResultList extends Component {
+    getBestOnly = (list) => {
+        let best = [];
+
+        let lowest = {};
+
+        for (let i = 0; i < list.length; i++) {
+            let element = list[i];
+
+            if (!lowest[element.simplifiedTitle] || lowest[element.simplifiedTitle].price > element.price) {
+                lowest[element.simplifiedTitle] = element;
+            }
+        }
+
+        for (const [key, val] of Object.entries(lowest)) {
+            best.push(val);
+        }
+
+        return best;
+    }
+
     render() {
         if (this.props.loading) {
             return <h2>Loading...</h2>
@@ -19,6 +39,10 @@ class ResultList extends Component {
 
         if (this.props.saleOnly) {
             resultList = resultList.filter(e => e.normalPrice);
+        }
+
+        if (this.props.bestOnly) {
+            resultList = this.getBestOnly(resultList);
         }
 
         if (resultList.length === 0) {
@@ -37,7 +61,9 @@ class ResultList extends Component {
 
 ResultList.propTypes = {
     loading: Types.bool,
-    results: Types.array
+    results: Types.array,
+    saleOnly: Types.bool,
+    bestOnly: Types.bool
 }
 
 ResultList.defaultProps = {

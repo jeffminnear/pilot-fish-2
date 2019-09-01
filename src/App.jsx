@@ -57,7 +57,12 @@ class App extends Component {
                     toggleSaleOnly={this.toggleSaleOnly}
                     toggleBestOnly={this.toggleBestOnly}
                 />
-                <ResultList loading={loading} results={results} saleOnly={saleOnly} />
+                <ResultList
+                    loading={loading}
+                    results={results}
+                    saleOnly={saleOnly}
+                    bestOnly={bestOnly}
+                />
             </div>
         );
     }
