@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 import Types from 'prop-types';
 
+const style = {
+    a: {
+        'textDecoration': 'none',
+        'color': 'black'
+    }
+}
+
 class Result extends Component {
     render() {
         const { result } = this.props;
 
         return (
-            <a href={result.linkURL}>
+            <a href={result.linkURL} style={style.a}>
                 <li className="search-result">
                     <h3>{result.title}</h3>
+                    <p>{result.price} - {result.normalPrice}</p>
                     <img src={result.imageURL} />
                 </li>
             </a>

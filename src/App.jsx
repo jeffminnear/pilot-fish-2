@@ -10,7 +10,9 @@ class App extends Component {
 
         this.state = {
             searchQuery: '',
-            results: []
+            results: [],
+            saleOnly: false,
+            bestOnly: true
         }
     }
 
@@ -34,11 +36,28 @@ class App extends Component {
             });
     }
 
+    toggleSaleOnly = () => {
+        this.setState({ saleOnly: !this.state.saleOnly });
+    }
+
+    toggleBestOnly = () => {
+        this.setState({ bestOnly: !this.state.bestOnly });
+    }
+
     render() {
+        const { saleOnly, bestOnly, loading, results } = this.state;
+
         return (
             <div id="app">
-                <SearchBar handleInput={this.updateSearchQuery} search={this.search} />
-                <ResultList loading={this.state.loading} results={this.state.results} />
+                <SearchBar
+                    handleInput={this.updateSearchQuery}
+                    search={this.search}
+                    saleOnly={saleOnly}
+                    bestOnly={bestOnly}
+                    toggleSaleOnly={this.toggleSaleOnly}
+                    toggleBestOnly={this.toggleBestOnly}
+                />
+                <ResultList loading={loading} results={results} saleOnly={saleOnly} />
             </div>
         );
     }
